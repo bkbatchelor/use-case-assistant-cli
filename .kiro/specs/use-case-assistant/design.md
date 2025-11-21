@@ -87,7 +87,7 @@ The application follows a layered architecture:
   - `validateSuccessGuarantee(guarantee: string): ValidationResult`
   - `validateUseCase(useCase: UseCase): ValidationResult`
 
-### Domain Model Layer
+### Sub-Domain Model Layer
 
 **UseCase**
 - Properties:
