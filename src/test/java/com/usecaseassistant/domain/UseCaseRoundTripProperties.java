@@ -2,6 +2,7 @@ package com.usecaseassistant.domain;
 
 import com.usecaseassistant.storage.Serializer;
 import net.jqwik.api.*;
+import net.jqwik.api.Builders;
 
 import java.util.List;
 import java.util.UUID;
@@ -35,41 +36,20 @@ class UseCaseRoundTripProperties {
 
     @Provide
     Arbitrary<UseCase> useCases() {
-        // Combine in groups due to jqwik's 8-parameter limit
-        return Combinators.combine(
-            ids(),
-            titles(),
-            actors(),
-            goalLevels(),
-            designScopes(),
-            triggers(),
-            stringLists(),  // preconditions
-            stringLists()   // postconditions
-        ).as((id, title, actor, goalLevel, scope, trigger, pre, post) ->
-            UseCase.builder()
-                .id(id)
-                .title(title)
-                .primaryActor(actor)
-                .goalLevel(goalLevel)
-                .designScope(scope)
-                .trigger(trigger)
-                .preconditions(pre)
-                .postconditions(post)
-        ).flatMap(builder ->
-            Combinators.combine(
-                stringLists(),  // successGuarantees
-                scenarios(),
-                extensionLists(),
-                stringLists()   // stakeholders
-            ).as((success, scenario, ext, stake) ->
-                builder
-                    .successGuarantees(success)
-                    .mainScenario(scenario)
-                    .extensions(ext)
-                    .stakeholders(stake)
-                    .build()
-            )
-        );
+        return Builders.withBuilder(() -> UseCase.builder())
+            .use(ids()).in((b, id) -> b.id(id))
+            .use(titles()).in((b, title) -> b.title(title))
+            .use(actors()).in((b, actor) -> b.primaryActor(actor))
+            .use(goalLevels()).in((b, level) -> b.goalLevel(level))
+            .use(designScopes()).in((b, scope) -> b.designScope(scope))
+            .use(triggers()).in((b, trigger) -> b.trigger(trigger))
+            .use(stringLists()).in((b, pre) -> b.preconditions(pre))
+            .use(stringLists()).in((b, post) -> b.postconditions(post))
+            .use(stringLists()).in((b, success) -> b.successGuarantees(success))
+            .use(scenarios()).in((b, scenario) -> b.mainScenario(scenario))
+            .use(extensionLists()).in((b, ext) -> b.extensions(ext))
+            .use(stringLists()).in((b, stake) -> b.stakeholders(stake))
+            .build(UseCase.Builder::build);
     }
 
     @Provide
