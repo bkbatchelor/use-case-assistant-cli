@@ -1,6 +1,6 @@
 # Implementation Plan
 
-- [ ] 1. Set up project structure and dependencies
+- [x] 1. Set up project structure and dependencies
   - Create directory structure for domain, services, CLI, and storage layers
   - Initialize package manager and configure build tools
   - Add CLI framework library
@@ -9,7 +9,7 @@
   - Configure test runner
   - _Requirements: All_
 
-- [ ] 2. Implement core domain models
+- [-] 2. Implement core domain models
   - Define TypeScript interfaces or classes for UseCase, Scenario, Step, Extension, GoalLevel
   - Implement immutable domain objects with proper typing
   - Create factory functions for domain object creation

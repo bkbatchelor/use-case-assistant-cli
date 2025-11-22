@@ -1,0 +1,56 @@
+plugins {
+    id 'java'
+    id 'application'
+    id 'org.springframework.boot' version '3.5.7'
+    id 'io.spring.dependency-management' version '1.1.7'
+}
+
+group = 'com.usecaseassistant'
+version = '1.0.0'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    // Spring Boot
+    implementation 'org.springframework.boot:spring-boot-starter'
+    
+    // CLI framework
+    implementation 'org.springframework.shell:spring-shell-starter:3.3.3'
+    
+    // JSON processing
+    implementation 'com.google.code.gson:gson:2.10.1'
+    
+    // JSON schema validation
+    implementation 'com.networknt:json-schema-validator:1.0.87'
+    
+    // Testing
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.10.1'
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+    
+    // Property-based testing
+    testImplementation 'net.jqwik:jqwik:1.8.2'
+}
+
+application {
+    mainClass = 'com.usecaseassistant.UseCaseAssistantApplication'
+}
+
+test {
+    useJUnitPlatform()
+    
+    // Configure jqwik property-based testing
+    include '**/*Test.class', '**/*Tests.class', '**/*Properties.class'
+}
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(21)
+    }
+}
+
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
+}
