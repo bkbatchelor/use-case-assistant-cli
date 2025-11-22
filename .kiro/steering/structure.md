@@ -17,4 +17,5 @@ To be established as the project develops.
 
 - This is a new project with minimal structure
 - Organization patterns will emerge as code is added
+- Produce code that is readable using an idiomatic approach
 - Update this document as the project structure evolves

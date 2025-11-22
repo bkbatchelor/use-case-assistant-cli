@@ -1,17 +1,30 @@
 package com.usecaseassistant.storage;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.*;
 import com.google.gson.reflect.TypeToken;
+import com.networknt.schema.JsonSchema;
+import com.networknt.schema.JsonSchemaFactory;
+import com.networknt.schema.SpecVersion;
+import com.networknt.schema.ValidationMessage;
 import com.usecaseassistant.domain.*;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.lang.reflect.Type;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 /**
  * Handles serialization and deserialization of use cases to/from JSON.
+ * Includes JSON schema validation for data integrity.
  */
 public class Serializer {
     private final Gson gson;
+    private final JsonSchema schema;
+    private final ObjectMapper objectMapper;
 
     public Serializer() {
         this.gson = new GsonBuilder()
@@ -21,26 +34,86 @@ public class Serializer {
                 .registerTypeAdapter(Step.class, new StepAdapter())
                 .registerTypeAdapter(Extension.class, new ExtensionAdapter())
                 .create();
+        
+        this.objectMapper = new ObjectMapper();
+        this.schema = loadSchema();
+    }
+
+    private JsonSchema loadSchema() {
+        try (InputStream schemaStream = getClass().getResourceAsStream("/use-case-schema.json")) {
+            if (schemaStream == null) {
+                throw new IllegalStateException("Could not find use-case-schema.json in resources");
+            }
+            JsonSchemaFactory factory = JsonSchemaFactory.getInstance(SpecVersion.VersionFlag.V7);
+            return factory.getSchema(schemaStream);
+        } catch (IOException e) {
+            throw new IllegalStateException("Failed to load JSON schema", e);
+        }
     }
 
     /**
      * Serializes a use case to JSON string.
+     * 
+     * @param useCase the use case to serialize
+     * @return JSON string representation
+     * @throws SerializationException if serialization fails
      */
     public String serialize(UseCase useCase) {
         if (useCase == null) {
             throw new IllegalArgumentException("UseCase cannot be null");
         }
-        return gson.toJson(useCase);
+        try {
+            return gson.toJson(useCase);
+        } catch (Exception e) {
+            throw new SerializationException("Failed to serialize use case: " + e.getMessage(), e);
+        }
     }
 
     /**
-     * Deserializes a JSON string to a use case.
+     * Deserializes a JSON string to a use case with schema validation.
+     * 
+     * @param json the JSON string to deserialize
+     * @return the deserialized use case
+     * @throws SerializationException if deserialization or validation fails
      */
     public UseCase deserialize(String json) {
         if (json == null || json.trim().isEmpty()) {
             throw new IllegalArgumentException("JSON string cannot be null or empty");
         }
-        return gson.fromJson(json, UseCase.class);
+        
+        // Validate schema first
+        validateSchema(json);
+        
+        // Deserialize
+        try {
+            return gson.fromJson(json, UseCase.class);
+        } catch (JsonParseException e) {
+            throw new SerializationException("Malformed JSON: " + e.getMessage(), e);
+        } catch (Exception e) {
+            throw new SerializationException("Failed to deserialize use case: " + e.getMessage(), e);
+        }
+    }
+
+    /**
+     * Validates JSON string against the use case schema.
+     * 
+     * @param json the JSON string to validate
+     * @throws SerializationException if validation fails
+     */
+    public void validateSchema(String json) {
+        try {
+            JsonNode jsonNode = objectMapper.readTree(json);
+            Set<ValidationMessage> errors = schema.validate(jsonNode);
+            
+            if (!errors.isEmpty()) {
+                String errorMessages = errors.stream()
+                        .map(ValidationMessage::getMessage)
+                        .collect(Collectors.joining("; "));
+                throw new SerializationException("Schema validation failed: " + errorMessages);
+            }
+        } catch (IOException e) {
+            throw new SerializationException("Invalid JSON format: " + e.getMessage(), e);
+        }
     }
 
     // Type adapters for immutable domain objects

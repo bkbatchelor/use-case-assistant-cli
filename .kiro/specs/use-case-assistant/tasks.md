@@ -19,13 +19,13 @@
   - **Property 1: Use case data round-trip preservation**
   - **Validates: Requirements 3.1, 3.2**
 
-- [ ] 3. Implement serialization layer
+- [x] 3. Implement serialization layer
   - Create Serializer class with serialize/deserialize methods
   - Implement JSON schema validation
   - Add error handling for malformed JSON
   - _Requirements: 3.1, 3.2, 3.3, 3.4_
 
-- [ ] 3.1 Write property test for schema validation on load
+- [x] 3.1 Write property test for schema validation on load
   - **Property 7: Schema validation on load**
   - **Validates: Requirements 3.4**
 
