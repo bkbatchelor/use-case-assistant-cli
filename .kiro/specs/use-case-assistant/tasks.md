@@ -9,13 +9,13 @@
   - Configure test runner
   - _Requirements: All_
 
-- [-] 2. Implement core domain models
+- [x] 2. Implement core domain models
   - Define TypeScript interfaces or classes for UseCase, Scenario, Step, Extension, GoalLevel
   - Implement immutable domain objects with proper typing
   - Create factory functions for domain object creation
   - _Requirements: 1.2, 3.1, 3.2_
 
-- [ ] 2.1 Write property test for use case data round-trip preservation
+- [x] 2.1 Write property test for use case data round-trip preservation
   - **Property 1: Use case data round-trip preservation**
   - **Validates: Requirements 3.1, 3.2**
 
