@@ -29,7 +29,7 @@
   - **Property 7: Schema validation on load**
   - **Validates: Requirements 3.4**
 
-- [ ] 4. Implement validation service
+- [x] 4. Implement validation service
   - Create ValidationService class
   - Implement validateTitle method with goal-orientation checking
   - Implement validateGoalLevel method with enum validation
@@ -39,27 +39,27 @@
   - Implement validateUseCase method that orchestrates all validations
   - _Requirements: 2.1, 2.2, 2.3, 2.4, 2.5_
 
-- [ ] 4.1 Write property test for step format validation
+- [x] 4.1 Write property test for step format validation
   - **Property 2: Step format validation**
   - **Validates: Requirements 1.4, 2.2**
 
-- [ ] 4.2 Write property test for title goal-orientation validation
+- [x] 4.2 Write property test for title goal-orientation validation
   - **Property 3: Title goal-orientation validation**
   - **Validates: Requirements 2.1**
 
-- [ ] 4.3 Write property test for goal level enumeration validation
+- [x] 4.3 Write property test for goal level enumeration validation
   - **Property 4: Goal level enumeration validation**
   - **Validates: Requirements 2.3**
 
-- [ ] 4.4 Write property test for extension branch point validation
+- [x] 4.4 Write property test for extension branch point validation
   - **Property 5: Extension branch point validation**
   - **Validates: Requirements 2.4**
 
-- [ ] 4.5 Write property test for success guarantee format validation
+- [x] 4.5 Write property test for success guarantee format validation
   - **Property 6: Success guarantee format validation**
   - **Validates: Requirements 2.5**
 
-- [ ] 4.6 Write property test for validation consistency
+- [x] 4.6 Write property test for validation consistency
   - **Property 17: Validation consistency**
   - **Validates: Requirements 6.3**
 
