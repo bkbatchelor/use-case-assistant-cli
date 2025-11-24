@@ -77,7 +77,7 @@
   - **Property 8: File operation error reporting**
   - **Validates: Requirements 3.5, 5.5, 8.4**
 
-- [ ] 6. Implement use case service layer
+- [x] 6. Implement use case service layer
   - Create UseCaseService class
   - Implement createUseCase method that coordinates validation and storage
   - Implement loadUseCase method
@@ -86,31 +86,31 @@
   - Implement listUseCases method with sorting
   - _Requirements: 1.1, 1.2, 3.1, 3.2, 4.1, 4.5, 6.1, 6.4, 8.2_
 
-- [ ] 6.1 Write property test for list completeness and information
+- [x] 6.1 Write property test for list completeness and information
   - **Property 9: List completeness and information**
   - **Validates: Requirements 4.1, 4.2**
 
-- [ ] 6.2 Write property test for alphabetical sorting
+- [x] 6.2 Write property test for alphabetical sorting
   - **Property 10: Alphabetical sorting**
   - **Validates: Requirements 4.5**
 
-- [ ] 6.3 Write property test for list selection loads correct use case
+- [x] 6.3 Write property test for list selection loads correct use case
   - **Property 11: List selection loads correct use case**
   - **Validates: Requirements 4.4**
 
-- [ ] 6.4 Write property test for edit persistence
+- [x] 6.4 Write property test for edit persistence
   - **Property 15: Edit persistence**
   - **Validates: Requirements 6.4**
 
-- [ ] 6.5 Write property test for edit cancellation preservation
+- [x] 6.5 Write property test for edit cancellation preservation
   - **Property 16: Edit cancellation preservation**
   - **Validates: Requirements 6.5**
 
-- [ ] 6.6 Write property test for deletion removes file
+- [x] 6.6 Write property test for deletion removes file
   - **Property 20: Deletion removes file**
   - **Validates: Requirements 8.2**
 
-- [ ] 6.7 Write property test for deletion cancellation preservation
+- [x] 6.7 Write property test for deletion cancellation preservation
   - **Property 21: Deletion cancellation preservation**
   - **Validates: Requirements 8.3**
 
