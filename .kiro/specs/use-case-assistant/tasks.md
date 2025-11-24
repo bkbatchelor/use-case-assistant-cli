@@ -63,7 +63,7 @@
   - **Property 17: Validation consistency**
   - **Validates: Requirements 6.3**
 
-- [ ] 5. Implement file storage repository
+- [x] 5. Implement file storage repository
   - Create UseCaseRepository class
   - Implement save method with atomic file writes
   - Implement load method with error handling
@@ -73,7 +73,7 @@
   - Set up storage directory structure (~/.usecase-assistant/use-cases/)
   - _Requirements: 3.1, 3.2, 3.5, 4.1, 8.2_
 
-- [ ] 5.1 Write property test for file operation error reporting
+- [x] 5.1 Write property test for file operation error reporting
   - **Property 8: File operation error reporting**
   - **Validates: Requirements 3.5, 5.5, 8.4**
 
